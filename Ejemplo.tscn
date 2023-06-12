@@ -28,7 +28,6 @@ size = Vector2( 20, 20 )
 environment = SubResource( 2 )
 script = ExtResource( 1 )
 light = NodePath("../DirectionalLight")
-sun_color_day = Color( 0.937255, 0.917647, 0.752941, 1 )
 top_color_night = Color( 0, 0.0901961, 0.141176, 1 )
 horizon_color_night = Color( 0.0745098, 0.184314, 0.270588, 1 )
 
