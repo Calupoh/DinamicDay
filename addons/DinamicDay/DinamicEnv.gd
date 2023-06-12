@@ -16,7 +16,8 @@ export (Color) var sun_color_evening = Color(0.92549, 0.305882, 0)
 export (Color) var top_color_night = Color(0, 0.090196, 0.141176)
 export (Color) var horizon_color_night = Color(0.07451, 0.184314, 0.270588)
 export (Color) var sun_color_night = Color(0.576471, 0.576471, 0.576471)
-
+# posicion anterior de la luz
+var ant_light
     
 
 func _process(delta):
@@ -24,45 +25,47 @@ func _process(delta):
     var l = get_node(light)
     if l is DirectionalLight and sky is ProceduralSky:
         # Alineando sol procedural y luz direccional
-        var ang_light = l.get_rotation_degrees()
-        ang_light[1] = ang_light[1] * (-1)
-        ang_light[0] = ang_light[0] * (-1)
-        ang_light[1] = ang_light[1] - 180
+        if ant_light != l.get_rotation_degrees():
+            ant_light = l.get_rotation_degrees()
+            var ang_light = l.get_rotation_degrees()
+            ang_light[1] = ang_light[1] * (-1)
+            ang_light[0] = ang_light[0] * (-1)
+            ang_light[1] = ang_light[1] - 180
+            
+            sky.set_sun_latitude(ang_light[0])
+            sky.set_sun_longitude(ang_light[1])
         
-        sky.set_sun_latitude(ang_light[0])
-        sky.set_sun_longitude(ang_light[1])
-    
-        # Ajustando colores conforme a hora del día
-        # interpolando el color de atardecer con el del dia
-        if day:
-            var h = sky.get_sun_latitude()
-            # Asegurando valores positivos
-            if h < 0:
-                h = h * (-1)
-            if h > 90:
-                h = 180 - h
-            h = (h / 46)
-            if h > 1:
-                h = 1
-            sky.set_sky_top_color(
-                top_color_evening.linear_interpolate(top_color_day, h)
-            )
-            sky.set_sky_horizon_color(
-                horizon_color_evening.linear_interpolate(horizon_color_day, h)
-            )
-            sky.set_sun_color(
-                sun_color_evening.linear_interpolate(sun_color_day, h)
-            )
-            sky.set_sun_angle_min(1)
-            sky.set_sun_angle_max(100)
-            sky.set_sun_curve(0.05)
-        else:
-            sky.set_sky_top_color(top_color_night)
-            sky.set_sky_horizon_color(horizon_color_night)
-            sky.set_sun_color(sun_color_night)
-            sky.set_sun_angle_min(2)  
-            sky.set_sun_angle_max(28)
-            sky.set_sun_curve(0.0196)
-        
-        # Ajustando la luz direccional al color del sol
-        l.light_color = sky.get_sun_color()
+            # Ajustando colores conforme a hora del día
+            # interpolando el color de atardecer con el del dia
+            if day:
+                var h = sky.get_sun_latitude()
+                # Asegurando valores positivos
+                if h < 0:
+                    h = h * (-1)
+                if h > 90:
+                    h = 180 - h
+                h = (h / 46)
+                if h > 1:
+                    h = 1
+                sky.set_sky_top_color(
+                    top_color_evening.linear_interpolate(top_color_day, h)
+                )
+                sky.set_sky_horizon_color(
+                    horizon_color_evening.linear_interpolate(horizon_color_day, h)
+                )
+                sky.set_sun_color(
+                    sun_color_evening.linear_interpolate(sun_color_day, h)
+                )
+                sky.set_sun_angle_min(1)
+                sky.set_sun_angle_max(100)
+                sky.set_sun_curve(0.05)
+            else:
+                sky.set_sky_top_color(top_color_night)
+                sky.set_sky_horizon_color(horizon_color_night)
+                sky.set_sun_color(sun_color_night)
+                sky.set_sun_angle_min(2)  
+                sky.set_sun_angle_max(28)
+                sky.set_sun_curve(0.0196)
+            
+            # Ajustando la luz direccional al color del sol
+            l.light_color = sky.get_sun_color()
