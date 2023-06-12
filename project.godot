@@ -10,12 +10,12 @@ config_version=4
 
 [application]
 
-config/name="prueba-cielo"
+config/name="DinamicDay"
 config/icon="res://icon.png"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/DinamicDay/plugin.cfg" )
+enabled=PoolStringArray(  )
 
 [gui]
 
