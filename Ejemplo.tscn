@@ -3,21 +3,22 @@
 [ext_resource path="res://addons/DinamicDay/DinamicEnv.gd" type="Script" id=1]
 
 [sub_resource type="ProceduralSky" id=1]
-sky_top_color = Color( 0.0641687, 0.370144, 0.536858, 1 )
-sky_horizon_color = Color( 0.897293, 0.596513, 0.32303, 1 )
-sun_color = Color( 0.935372, 0.460036, 0.135379, 1 )
-sun_latitude = 11.5912
-sun_longitude = -3.66441
+sky_top_color = Color( 0.202855, 0.538027, 0.719339, 1 )
+sky_horizon_color = Color( 0.663717, 0.732766, 0.78045, 1 )
+sun_color = Color( 0.935754, 0.839597, 0.65688, 1 )
+sun_latitude = 40.1313
+sun_longitude = -184.952
 
 [sub_resource type="Environment" id=2]
 background_mode = 2
 background_sky = SubResource( 1 )
+ambient_light_energy = 0.872419
 
-[sub_resource type="SpatialMaterial" id=3]
+[sub_resource type="SpatialMaterial" id=6]
 albedo_color = Color( 0.701961, 0.745098, 0.486275, 1 )
 
 [sub_resource type="PlaneMesh" id=4]
-material = SubResource( 3 )
+material = SubResource( 6 )
 size = Vector2( 20, 20 )
 
 [sub_resource type="SphereMesh" id=5]
@@ -28,12 +29,14 @@ size = Vector2( 20, 20 )
 environment = SubResource( 2 )
 script = ExtResource( 1 )
 light = NodePath("../DirectionalLight")
+sun_color_day = Color( 0.937255, 0.917647, 0.752941, 1 )
 top_color_night = Color( 0, 0.0901961, 0.141176, 1 )
 horizon_color_night = Color( 0.0745098, 0.184314, 0.270588, 1 )
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
-transform = Transform( 0.852486, -0.518988, -0.062609, -0.498594, -0.843227, 0.200927, -0.157072, -0.140071, -0.977603, 0, 5.29322, 0 )
-light_color = Color( 0.935372, 0.460036, 0.135379, 1 )
+transform = Transform( 0.773178, -0.630747, 0.0659926, 0.449521, 0.618464, 0.644541, -0.447356, -0.46868, 0.761716, 0, 5.29322, -1.18349 )
+light_color = Color( 0.935754, 0.839597, 0.65688, 1 )
+light_energy = 0.872419
 shadow_enabled = true
 
 [node name="plano" type="MeshInstance" parent="."]

@@ -59,6 +59,12 @@ func _process(delta):
                 sky.set_sun_angle_min(1)
                 sky.set_sun_angle_max(100)
                 sky.set_sun_curve(0.05)
+#                sky.set_sky_energy(h)
+                if h > .4:
+                    l.light_energy = h
+                    get_environment().set_ambient_light_energy(h)
+                else:
+                    get_environment().set_ambient_light_energy(.4)
             else:
                 sky.set_sky_top_color(top_color_night)
                 sky.set_sky_horizon_color(horizon_color_night)
@@ -66,6 +72,8 @@ func _process(delta):
                 sky.set_sun_angle_min(2)  
                 sky.set_sun_angle_max(28)
                 sky.set_sun_curve(0.0196)
+                get_environment().set_ambient_light_energy(.1)
+                l.light_energy = 0.15
             
             # Ajustando la luz direccional al color del sol
             l.light_color = sky.get_sun_color()
